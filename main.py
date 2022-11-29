@@ -40,14 +40,14 @@ if __name__ == '__main__':
     
     # asynchronous execution
     cores = cpu_count()
-    pool = Pool(processes=N_PROCESSES)
     start_time = time.time()
-    with pool as p:
+    
+    with Pool(processes=N_PROCESSES) as p:
         model_parallel = p.map_async(trainRFAsync, N_TREES_LIST).get()
     print(f"Async Tasks Completed!")
     print('elapsed: ', round(time.time() - start_time, 6), 's')
     
-    # synchrounus execution
+    # synchronous execution
     start_time = time.time()
     trainRFSync(N_TREES_LIST)
     print(f"Sync Tasks Completed!")
